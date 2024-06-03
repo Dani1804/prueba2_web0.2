@@ -56,16 +56,24 @@
             </div>
             <div class="col-lg-3"></div>
         </div>
-        <div class="row">
+        <div class="row mb-5">
           <div class="col-lg-12" style="text-align: center;"><button id="btnCategorias" class="btn btn-primary">Ver Categorias</button></div>
-
         </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <!--Aquí va la tabla 1-->
+          </div>
+          <div class="col-lg-6">
+            <!--Aquí va la tabla 2-->
+          </div>
+        </div>
+
+
+
+
 
       </div>
   
-
-
-
 
 <!--Instalacion de Bootstrap, JQuery, SweetAler, aos , datatable -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -76,7 +84,18 @@
 
 <script>
     $(document).ready(function () {
+    $('#btnCategorias').on('click', function() {
 
+
+$.get('https://www.themealdb.com/api/json/v1/1/categories.php', function (data) {
+$.each(data.categories, function (i, item) {
+
+var filaHtml = '<tr><th scope="row">' + item.idCategory + '</th><td>' + item.strCategory + '</td><td><img src="' + item.strCategoryThumb + '" class="img-fluid" style="max-width: 100px"></td><td>@mdo</td></tr>';
+
+// $('#body-categorias').append(filaHtml);
+});
+});
+});
 
 
 // inicializando componentes
