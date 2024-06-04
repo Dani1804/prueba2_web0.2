@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title >Comidas Deliciosas S.A</title>
+    <link rel="stylesheet" type="text/css" href="prueba.css">
     <link rel="icon"  type="image/PNG" href="imagenes/comidasDeliciosas.PNG">
-
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/datatable.min.css">
+
 </head>
 <body>
     <div class="container-mt-4">
@@ -57,118 +56,71 @@
             <div class="col-lg-3"></div>
         </div>
         <div class="row mb-5">
-          <div class="col-lg-12" style="text-align: center;"><button id="btnCategorias" class="btn btn- ">Ver Categorias</button></div>
+          <div class="col-lg-12" style="text-align: center;"><button id="btnCategorias" class="btn btn-primary ">Ver Categorias</button></div>
         </div>
-
-        <div class="row lg-6">
-          <div class="col-lg-8">
-            <table class="table">
-              <thead>
+        <div class="row">
+          <div class="col-lg-6">
+            <table class="table" id="table1" data-aos="fade-left" data-aos-duration="3000">
+              <thead class="thead-dark">
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">ID Categoría</th>
+                  <th scope="col">Nombre Categoría</th>
+                  <th scope="col">Imagen Categoría</th>
+                  <th scope="col">Descripción Categoría</th>
+                  <th scope="col">Mas Información</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td>@twitter</td>
-                </tr>
+              <tbody  id="body-categorias">
               </tbody>
             </table>
           </div>
-<!--No me acuerdo como se agrega el espacio entre tablas jajaja-->
           <div class="col-lg-6">
-            <table class="table">
+            <table class="table" id="table2" style="display: none;" >
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
+                  <th scope="col">ID Comida</th>
+                  <th scope="col">nombre comida</th>
+                  <th scope="col">Imagen Comida</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                </tr>
+              <tbody id="body-meals">
               </tbody>
             </table>
         </div>
-
-
-
-
-
       </div>
-  
-
 <!--Instalacion de Bootstrap, JQuery, SweetAler, aos , datatable -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="assets/js/datatable.min.js"></script>
 <script src="https://kit.fontawesome.com/c07c240274.js" crossorigin="anonymous"></script>
 
 <script>
-    $(document).ready(function () {
-    $('#btnCategorias').on('click', function() {
-
-
-$.get('https://www.themealdb.com/api/json/v1/1/categories.php', function (data) {
-$.each(data.categories, function (i, item) {
-
-var filaHtml = '<tr><th scope="row">' + item.idCategory + '</th><td>' + item.strCategory + '</td><td><img src="' + item.strCategoryThumb + '" class="img-fluid" style="max-width: 100px"></td><td>@mdo</td></tr>';
-
-// $('#body-categorias').append(filaHtml);
-});
-});
-});
-
-
-// inicializando componentes
-
-AOS.init();
-
-
-
-// datatable
-
-let table = new DataTable('#table1');
-
-
+  //rellenar la segunda tabla
+  function verMas(strCategory) {
+    document.getElementById('table2').style.display = 'table';
+    $('#body-meals').html('');
+    $.get('https://www.themealdb.com/api/json/v1/1/filter.php?c='+strCategory, function(data){
+      $.each(data.meals, function(i, item) {
+        var filatable2 = '<tr><th scope="row">' + item.idMeal + '</th><td>' + item.strMeal + '</td><td><img src="' + item.strMealThumb + '" class="img-fluid" style="max-width: 100px"></td></tr>';
+        $('#body-meals').append(filatable2);
+      });
+    });
+  }
+</script>
+<script>
+$(document).ready(function () {
+  $('#btnCategorias').on('click', function() {
+    $('#body-categorias').html('');
+    $.get('https://www.themealdb.com/api/json/v1/1/categories.php', function (data) {
+      $.each(data.categories, function (i, item) {
+        var filatable1 = '<tr><th scope="row">' + item.idCategory + '</th><td>' + item.strCategory + '</td><td><img src="' + item.strCategoryThumb + '" class="img-fluid" style="max-width: 100px"></td><td>' + item.strCategoryDescription +'</td><td><button onclick="verMas(\''+item.strCategory+'\')"  id="'+item.idCategory+'" class="btn btn-primary">Ver más</button></td></tr>';
+        $('#body-categorias').append(filatable1);
+      });
+    });
+  });
+  // inicializando componentes
+  AOS.init();
 });
 </script>
 </body>
