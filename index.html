@@ -12,7 +12,7 @@
 </head>
 <body >
     <div class="container-fluid">
-        <div class="row">
+        <div class="row-fluid">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-white" style="background-color: black;">
                     <a class="navbar-brand" href="#"><img  class="img-fluid rounded" src="imagenes/comidasDeliciosas.PNG" width="50px" height="50px"></a>
@@ -40,7 +40,7 @@
         </div>
 
         
-        <div class="row mt-5">
+        <div class="row-fluid mt-5">
           <div class="col-lg-1"></div>
           <div class="col-lg-10" data-aos="flip-left" data-aos-duration="2000" style="text-align: center;" >
             <H1>Bienvenidos a ComidasDeliciosas S.A</H1>
@@ -60,7 +60,7 @@
 
         </div>
 
-        <div class="row mb-5">
+        <div class="row-fluid mb-5">
           <div class="col-lg-12" style="text-align: center;"><button id="btnCategorias" class="btn" style="background-color: darkorange">Ver Categorias  </button></div>
         </div>
         <div class="row">
@@ -101,35 +101,6 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://kit.fontawesome.com/c07c240274.js" crossorigin="anonymous"></script>
-
-<script>
-  //rellenar la segunda tabla
-  function verMas(strCategory) {
-    document.getElementById('table2').style.display = 'table';
-    $('#body-meals').html('');
-    $.get('https://www.themealdb.com/api/json/v1/1/filter.php?c='+strCategory, function(data){
-      $.each(data.meals, function(i, item) {
-        var filatable2 = '<tr><th scope="row">' + item.idMeal + '</th><td>' + item.strMeal + '</td><td><img src="' + item.strMealThumb + '" class="img-fluid" style="max-width: 100px"></td></tr>';
-        $('#body-meals').append(filatable2);
-      });
-    });
-  }
-</script>
-<script>
-$(document).ready(function () {
-  $('#btnCategorias').on('click', function() {
-    $('#body-categorias').html('');
-    $.get('https://www.themealdb.com/api/json/v1/1/categories.php', function (data) {
-      $.each(data.categories, function (i, item) {
-        var filatable1 = '<tr><th scope="row">' + item.idCategory + '</th><td>' + item.strCategory + '</td><td><img src="' + item.strCategoryThumb + '" class="img-fluid" style="max-width: 100px"></td><td>' + item.strCategoryDescription +'</td><td><button onclick="verMas(\''+item.strCategory+'\')"  id="'+item.idCategory+'" class="btn btn-light" style="background-color: darkorange"; "bordercolor:red"> Ver más <i class="fa-solid fa-arrow-right"></i></button></td></tr>';
-        $('#body-categorias').append(filatable1);
-      });
-    });
-  });
-  // inicializando componentes
-  AOS.init();
-});
-
-</script>
+<script src="prueba.js"></script>
 </body>
 </html>
