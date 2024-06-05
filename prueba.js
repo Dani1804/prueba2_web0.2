@@ -1,4 +1,4 @@
-  //rellenar la segunda tabla
+  //Función que consume la api según la categoría anterior y rellena la tabla meals
   function verMas(strCategory) {
     document.getElementById('table2').style.display = 'table';
     $('#body-meals').html('');
@@ -9,7 +9,7 @@
       });
     });
   }
-
+//Función que consume la api y rellena la tabla de categorías
 $(document).ready(function () {
   $('#btnCategorias').on('click', function() {
     $('#body-categorias').html('');
